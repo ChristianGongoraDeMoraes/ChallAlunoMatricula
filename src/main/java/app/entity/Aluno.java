@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,7 +31,7 @@ public class Aluno extends BaseEntity{
     private String telefone;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany
+    @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Matricula> matriculas = new ArrayList();
 
 }
