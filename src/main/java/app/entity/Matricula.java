@@ -1,16 +1,13 @@
 package app.entity;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,18 +16,16 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Aluno extends BaseEntity{
-
+public class Matricula extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
-    private LocalDate dataNascimento;
-    private String telefone;
+    private String codigoMatricula;
+    private String nomeCurso;
+    private LocalDate dataMatricula;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @OneToMany
-    private List<Matricula> matriculas = new ArrayList();
-
+    @ManyToOne
+    @JoinColumn(name = "aluno_id")
+    private Aluno aluno;
 }
